@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from backend.quiz.models import Quizzes, Question
-from backend.quiz.serializers import QuizSerializer, RandomQuestionSerializer, QuestionSerializer
+from .models import Quizzes, Question
+from .serializers import QuizSerializer, RandomQuestionSerializer, QuestionSerializer
 from rest_framework.views import APIView
 
 
