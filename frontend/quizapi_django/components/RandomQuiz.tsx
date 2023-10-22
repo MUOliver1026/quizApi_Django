@@ -5,7 +5,7 @@ import ConnectApi from "@/api/ConnectApi";
 const RandomQuiz = () => {
     const pathname = usePathname();
     const quizTitle = pathname.split('/').pop() || '';
-    const API_URL = 'http://localhost:8000/quiz/r/' + quizTitle;
+    const API_URL = 'https://oliverwu.pythonanywhere.com//quiz/r/' + quizTitle;
     const [dataState] = ConnectApi(API_URL);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);

@@ -9,7 +9,7 @@ type Quiz = {
     title: string;
 };
 
-const API_URL = "http://127.0.0.1:8000/quiz/";
+const API_URL = "https://oliverwu.pythonanywhere.com//quiz/";
 
 const QuizSelect = () => {
     const [dataState] = ConnectApi(API_URL);
