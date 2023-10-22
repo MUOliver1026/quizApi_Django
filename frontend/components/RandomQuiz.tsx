@@ -2,22 +2,33 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import ConnectApi from "@/api/ConnectApi";
 
+interface Answer {
+    id: number;          // Assuming id is a number based on the code usage
+    is_right: boolean;   // Inferring boolean type from the name and usage
+    answer_text: string; // Inferring string type based on the label display
+}
+
+interface QuizData {
+    title: string;    // Used as a title in the code
+    answer: Answer[]; // Used as a map in the code
+}
+
 const RandomQuiz = () => {
     const pathname = usePathname();
     const quizTitle = pathname.split('/').pop() || '';
     const API_URL = 'https://oliverwu.pythonanywhere.com/quiz/r/' + quizTitle;
     const [dataState] = ConnectApi(API_URL);
-    const [selectedAnswers, setSelectedAnswers] = useState([]);
+    const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     if (!dataState || !dataState.data || !dataState.data[0]) return null;
-    const quizData = dataState.data[0];
+    const quizData: QuizData = dataState.data[0];
 
     const handleSubmit = () => {
         setIsSubmitted(true);
     };
 
-    const handleCheckboxChange = (id) => {
+    const handleCheckboxChange = (id: number) => {
         if (selectedAnswers.includes(id)) {
             setSelectedAnswers(prev => prev.filter(item => item !== id));
         } else {
@@ -25,7 +36,7 @@ const RandomQuiz = () => {
         }
     };
 
-    const determineColor = (isRight, id) => {
+    const determineColor = (isRight: boolean, id: number) => {
         if (!isSubmitted) return '';
         if (isRight) {
             return selectedAnswers.includes(id) ? 'text-green-500' : 'text-red-500';
@@ -43,7 +54,7 @@ const RandomQuiz = () => {
             }}>
                 <div className="border p-4 rounded">
                     <h2 className="text-2xl mb-2">{quizData.title}</h2>
-                    {quizData.answer.map((ans) => (
+                    {quizData.answer.map((ans: Answer) => (
                         <div key={ans.id} className="flex items-center mb-2">
                             <input
                                 type="checkbox"
